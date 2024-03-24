@@ -3,6 +3,9 @@ from DoublyLinkedList import DoublyLinkedList
 from Node import Node
 
 def get_data(filename: str):
+	"""
+	Get data in form of a list of dictionaries from CSV file.
+	"""
 	with open(filename, "r") as csvfile:
 		csv_reader = csv.DictReader(csvfile)
 		data_dict = []
@@ -11,6 +14,9 @@ def get_data(filename: str):
 	return data_dict
 
 def welcome():
+	"""
+	Function to welcome the user.
+	"""
 	print("""------------------------------------------------------------------
 |                                                                |
 |        Welcome to the Video Game Recommendation Software       |
@@ -20,23 +26,15 @@ def welcome():
 ------------------------------------------------------------------""")
 
 def goodbye():
+	"""
+	Function to say goodbye to the user.
+	"""
 	print("Thank you for using the Gaming Recommendation Software!")
 
-def print_classifications(classifications: list):
-	for i in range(len(classifications)):
-		print(f"| {i+1}. {classifications[i]}", end="\t|")
-		if (i + 1) % 3 == 0:
-			print()
-	print()
-	print("---------------------------------------------------------\t")
-
-def get_classifications(sample: dict):
-	classifications = []
-	for element in sample:
-		classifications.append(element)
-	return classifications
-
 def search_possible_attribute(doubly_linked_list: DoublyLinkedList, attribute: str, value:str):
+	"""
+	Search for the possible values of a given attribute of the data.
+	"""
 	current_node = doubly_linked_list.head_node
 	possible = []
 	while current_node is not None:
@@ -47,17 +45,20 @@ def search_possible_attribute(doubly_linked_list: DoublyLinkedList, attribute: s
 
 	return possible
 
-def print_list(l: list):
-	for element in l:
-		print(element, end="\t")
-
 def get_decition(prompt: str, possible_answers: list):
+	"""
+	Function that gets a prompt to be displayed and returns the value if it is in the given possible answers, otherwise return an empty string.
+	"""
 	decition = input(prompt)
 	if decition in possible_answers:
 		return decition
 	return ""
 
 def get_genre(doubly_linked_list: DoublyLinkedList):
+	"""
+	Function that returns the genre of the given data.
+	It asks for the first part of the genre, until there is only one math and the user confirms that selection.
+	"""
 	while True:
 		user_input = input("Introduce the start of the gender and to show the possible options or type the\ngenre to generate the recommendations (Leave blank to see all the options): ")
 		possible = search_possible_attribute(doubly_linked_list, "Genre", user_input)
@@ -74,9 +75,12 @@ def get_genre(doubly_linked_list: DoublyLinkedList):
 			print(f"No gender starts with {user_input}")
 			decition = get_decition("Type 'c' for introducing another prompt or 'e' to exit the program: ", ['c', 'e'])
 			if decition == 'e':
-				return None
+				return ""
 			
 def get_recommendations(genre: str, doubly_linked_list : DoublyLinkedList, range_recommendations: list = [0, 10]):
+	"""
+	Function that returns the recomendations in the range of range_recommendations based on a given genre.
+	"""
 	print(range_recommendations)
 	current_node = doubly_linked_list.head_node
 	possible = DoublyLinkedList()
@@ -96,6 +100,9 @@ def get_recommendations(genre: str, doubly_linked_list : DoublyLinkedList, range
 	return possible
 
 def print_recommendation(recommendation: Node):
+	"""
+	Prints some data of the node.
+	"""
 	print(f"""--------------------------------------------------------
 Game Name: {recommendation.value["Name"]}
 Rank: {recommendation.value["Rank"]}
