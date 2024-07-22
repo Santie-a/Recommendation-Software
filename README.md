@@ -1,4 +1,6 @@
-This program recommends videogames based on the input of the user and the rank of the videogame bt global sales.
+### VIDEOGAME RECOMENDATION SOFTWARE
+
+This program recommends videogames based on the input of the user and the rank of the videogame by global sales.
 
 The purpose of this program is to implement a data structure called DoubleLinkedList.
 
